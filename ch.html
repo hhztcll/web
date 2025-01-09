@@ -228,7 +228,7 @@
 
 @font-face {
       font-family: 'ziti';
-      src: url('./img/c283-腾祥铁山楷书简.ttf');
+      src: url('./img/腾祥铁山楷书简.ttf');
     }
 
 .carousel-item {
@@ -245,6 +245,19 @@
   width: 100px; /* 控制指示图片基础宽度 */
   z-index: 5; /* 确保指示图片在花器或花朵上方 */
 }
+
+/* 测试 */
+ /* 左下角返回按钮 */
+ .back-button {
+            position: absolute;
+            bottom: 0%; /* 距离底部10% */
+            right: 8%; /* 距离左边5% */
+            width: 1vw; /* 按钮宽度为视口宽度的10% */
+            height: auto; /* 高度自动，保持比例 */
+            max-width: 10px; /* 最大宽度限制 */
+            z-index: 6; /* 确保按钮显示在最上方 */
+        }
+       
 
   </style>
 </head>
@@ -310,7 +323,10 @@
     <!-- 边框图 -->
     <img class="border-image" src="./img/xiak.jpg" alt="边框图">
 
-  
+  <!-- 测试 -->
+  <div class="back-button" onclick="goBack()">
+    <img src="./img/返回.png" alt="返回按钮" />
+</div>
   </div>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script>
@@ -620,7 +636,7 @@ draggableImages.forEach(img => {
         document.body.appendChild(wcImage);
         wcImage.addEventListener('click', function () {
                             // 点击 wc.png 后跳转到 fenxiang2.html
-                            window.location.href = './fenxiang1.html';
+                            window.location.href = './fenxiang2.html';
                         });
     }
     
@@ -641,8 +657,9 @@ draggableImages.forEach(img => {
 });
 
 
-// 获取花器图片
+// 获取所有花器和花朵图片
 const vaseImages = document.querySelectorAll('.vase');
+const flowerImages = document.querySelectorAll('.flower');
 
 // 创建一个新的遮盖层
 const newOverlayLayer = document.createElement('div');
@@ -660,10 +677,10 @@ newOverlayLayer.style.transition = 'opacity 0.5s ease'; // 添加渐变效果
 const overlayImage = document.createElement('img');
 overlayImage.style.position = 'absolute';
 overlayImage.style.zIndex = '100';
-overlayImage.style.top = '40%';
-overlayImage.style.left = '90%';
+overlayImage.style.top = '50%';
+overlayImage.style.left = '50%';
 overlayImage.style.transform = 'translate(-50%, -50%)';
-overlayImage.style.width = '2vh';  // 设置宽度为视口高度的 30%
+overlayImage.style.width = '30vh';  // 设置宽度为视口高度的 30%
 overlayImage.style.height = 'auto';  // 高度自动保持比例
 overlayImage.style.transition = 'opacity 0.5s ease'; // 添加渐变效果
 
@@ -677,37 +694,57 @@ document.body.appendChild(newOverlayLayer);
 let pressTimer;
 const pressDuration = 700; // 长按时间 700 毫秒
 
-// 监听每个花器图片的长按事件
-vaseImages.forEach(vase => {
-    vase.addEventListener('touchstart', function (e) {
-        pressTimer = setTimeout(function () {
-            console.log('长按开始');  // 调试输出
-            // 显示新的遮盖层和提示图片
-            newOverlayLayer.style.display = 'block';
-            overlayImage.style.opacity = '1'; // 设置提示图片可见
-            newOverlayLayer.style.opacity = '1'; // 设置遮盖层可见
+// 处理长按事件
+function handleLongPress(element) {
+    pressTimer = setTimeout(function () {
+        console.log('长按开始');  // 调试输出
+        // 显示新的遮盖层和提示图片
+        newOverlayLayer.style.display = 'block';
+        overlayImage.style.opacity = '1'; // 设置提示图片可见
+        newOverlayLayer.style.opacity = '1'; // 设置遮盖层可见
 
-            // 检查花器的路径并修改提示图片
-            console.log('vase.src:', vase.src);  // 打印路径，检查是否正确
-            if (vase.src.includes('hl.png')) {
-                overlayImage.src = './img/bjs.png'; // 修改为 bjs.png
-            } else if (vase.src.includes('hp.png')) {
-                overlayImage.src = './img/bjs2.jpg'; // 修改为 bjs2.jpg
-            }
+        // 检查元素的路径并修改提示图片
+        console.log('element.src:', element.src);  // 打印路径，检查是否正确
+        if (element.src.includes('hl.png')) {
+            overlayImage.src = './img/tshl.png'; // 修改为 bjs.png
+        } else if (element.src.includes('hp.png')) {
+            overlayImage.src = './img/tshp.png'; // 修改为 bjs2.jpg
+        } else if (element.src.includes('hpi.png')) {
+            overlayImage.src = './img/tshpi.png'; // 修改为含羞草图片
+        } else if (element.src.includes('ht.png')) {
+            overlayImage.src = './img/tsht.png'; // 修改为兰花图片
+        } else if (element.src.includes('hxc.png')) {
+            overlayImage.src = './img/tshxc.png'; // 修改为玫瑰花图片
+        } else if (element.src.includes('lh.png')) {
+            overlayImage.src = './img/tslh.png'; // 修改为玫瑰花图片
+        } else if (element.src.includes('yg.png')) {
+            overlayImage.src = './img/tsyg.png'; // 修改为玫瑰花图片
+        } else if (element.src.includes('jh.png')) {
+            overlayImage.src = './img/tsjh.png'; // 修改为玫瑰花图片
+        } else if (element.src.includes('mh.png')) {
+            overlayImage.src = './img/tsmh.png'; // 修改为玫瑰花图片
+        } else if (element.src.includes('md.png')) {
+            overlayImage.src = './img/tsmd.png'; // 修改为玫瑰花图片
+        } else if (element.src.includes('ss.png')) {
+            overlayImage.src = './img/tsss.png'; // 修改为玫瑰花图片
+        } 
+    }, pressDuration); // 长按超过指定时间显示遮盖层
+}
 
-            // 强制刷新图片，防止浏览器缓存问题
-            overlayImage.onload = function () {
-                console.log('图片已加载');
-            };
-        }, pressDuration); // 长按超过指定时间显示遮盖层
+// 监听花器和花朵的长按事件
+const allElements = [...vaseImages, ...flowerImages];
+
+allElements.forEach(element => {
+    element.addEventListener('touchstart', function () {
+        handleLongPress(element);
     });
 
-    vase.addEventListener('touchend', function () {
+    element.addEventListener('touchend', function () {
         // 如果没有长按，清除计时器
         clearTimeout(pressTimer);
     });
 
-    vase.addEventListener('touchcancel', function () {
+    element.addEventListener('touchcancel', function () {
         // 如果触摸取消，清除计时器
         clearTimeout(pressTimer);
     });
@@ -787,7 +824,7 @@ $(document).ready(function() {
 
     $xuxianImg.css({
       left: `${xuxianImgLeft}px`,
-      top: `${beijinRect.top + (beijinRect.height * 0.72) - ($xuxianImg.height() / 2)}px`,
+      top: `${beijinRect.top + (beijinRect.height * 0.67) - ($xuxianImg.height() / 2)}px`,
       width: `${xuxianImgWidth}px`
     });
   }
