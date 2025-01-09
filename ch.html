@@ -228,7 +228,7 @@
 
 @font-face {
       font-family: 'ziti';
-      src: url('./img/腾祥铁山楷书简.ttf');
+      src: url('./img/c283-腾祥铁山楷书简.ttf');
     }
 
 .carousel-item {
@@ -273,7 +273,10 @@
   <!-- 第二个遮盖层 -->
   <div id="new-overlay-text">
     <!-- 显示提示文字 -->
-    请分别搭配好花器、花盟主<br>和花客卿，定制属于自己的插花吧
+    请分别搭配好花器、花盟主<br>和花客卿，定制属于自己的插花吧<br>
+    <br>
+    <br>
+    长按花器和花有彩蛋哦~
   </div>
 </div>
   <!-- 背景图 -->
@@ -636,7 +639,7 @@ draggableImages.forEach(img => {
         document.body.appendChild(wcImage);
         wcImage.addEventListener('click', function () {
                             // 点击 wc.png 后跳转到 fenxiang2.html
-                            window.location.href = './fenxiang2.html';
+                            window.location.href = './fenxiang1.html';
                         });
     }
     
@@ -706,27 +709,27 @@ function handleLongPress(element) {
         // 检查元素的路径并修改提示图片
         console.log('element.src:', element.src);  // 打印路径，检查是否正确
         if (element.src.includes('hl.png')) {
-            overlayImage.src = './img/tshl.png'; // 修改为 bjs.png
+            overlayImage.src = './img/tshl.png'; 
         } else if (element.src.includes('hp.png')) {
-            overlayImage.src = './img/tshp.png'; // 修改为 bjs2.jpg
+            overlayImage.src = './img/tshp.png'; 
         } else if (element.src.includes('hpi.png')) {
-            overlayImage.src = './img/tshpi.png'; // 修改为含羞草图片
+            overlayImage.src = './img/tshpi.png'; 
         } else if (element.src.includes('ht.png')) {
-            overlayImage.src = './img/tsht.png'; // 修改为兰花图片
+            overlayImage.src = './img/tsht.png'; 
         } else if (element.src.includes('hxc.png')) {
-            overlayImage.src = './img/tshxc.png'; // 修改为玫瑰花图片
+            overlayImage.src = './img/tshxc.png'; 
         } else if (element.src.includes('lh.png')) {
-            overlayImage.src = './img/tslh.png'; // 修改为玫瑰花图片
+            overlayImage.src = './img/tslh.png'; 
         } else if (element.src.includes('yg.png')) {
-            overlayImage.src = './img/tsyg.png'; // 修改为玫瑰花图片
+            overlayImage.src = './img/tsyg.png'; 
         } else if (element.src.includes('jh.png')) {
-            overlayImage.src = './img/tsjh.png'; // 修改为玫瑰花图片
+            overlayImage.src = './img/tsjh.png'; 
         } else if (element.src.includes('mh.png')) {
-            overlayImage.src = './img/tsmh.png'; // 修改为玫瑰花图片
+            overlayImage.src = './img/tsmh.png'; 
         } else if (element.src.includes('md.png')) {
-            overlayImage.src = './img/tsmd.png'; // 修改为玫瑰花图片
+            overlayImage.src = './img/tsmd.png'; 
         } else if (element.src.includes('ss.png')) {
-            overlayImage.src = './img/tsss.png'; // 修改为玫瑰花图片
+            overlayImage.src = './img/tsss.png'; 
         } 
     }, pressDuration); // 长按超过指定时间显示遮盖层
 }
