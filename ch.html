@@ -245,6 +245,11 @@
   width: 100px; /* 控制指示图片基础宽度 */
   z-index: 5; /* 确保指示图片在花器或花朵上方 */
 }
+ @keyframes pulse {
+    0% { transform: translate(-50%, -50%) scale(1); }
+    50% { transform: translate(-50%, -50%) scale(1.2); }
+    100% { transform: translate(-50%, -50%) scale(1); }
+ }
 
   </style>
 </head>
@@ -610,23 +615,29 @@ draggableImages.forEach(img => {
  console.log('最终组合的图片路径:', newImageSrc);
 
   // 如果插花完成（即两朵花已放入花器中），显示 wc.png
-  if (flowerCount === 2) {
-        const wcImage = document.createElement('img');
-        wcImage.src = './img/wc.png';
-        wcImage.style.position = 'absolute';
-        wcImage.style.top = '40%';
-        wcImage.style.left = '90%';
-        wcImage.style.transform = 'translate(-50%, -50%)';
-        wcImage.style.zIndex = '300';
-        wcImage.style.width = '7vh'; // 可以调整显示的大小
-        wcImage.style.height = 'auto'; // 高度自动保持比例
-        document.body.appendChild(wcImage);
-        wcImage.addEventListener('click', function () {
-                            // 点击 wc.png 后跳转到 fenxiang2.html
-                            window.location.href = './fenxiang1.html';
-                        });
-    }
-    
+  // 如果插花完成（即两朵花已放入花器中），显示 wc.png
+if (flowerCount === 2) {
+    const wcImage = document.createElement('img');
+    wcImage.src = './img/wc.png';
+    wcImage.style.position = 'absolute';
+    wcImage.style.top = '40%';
+    wcImage.style.left = '90%';
+    wcImage.style.transform = 'translate(-50%, -50%)';
+    wcImage.style.zIndex = '300';
+    wcImage.style.width = '7vh'; // 可以调整显示的大小
+    wcImage.style.height = 'auto'; // 高度自动保持比例
+
+    // 添加 "呼吸" 动画效果
+    wcImage.style.animation = 'pulse 1.2s infinite ease-in-out';
+
+    document.body.appendChild(wcImage);
+
+    // 点击 wc.png 后跳转到 fenxiang1.html
+    wcImage.addEventListener('click', function () {
+        window.location.href = './fenxiang1.html';
+    });
+}
+
     
 
   // 保存最终组合图片到 localStorage
