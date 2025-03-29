@@ -82,6 +82,7 @@
         /* 每一行文字的样式 */
         .text-line {
             margin: 10px 0;
+            
             font-family: 'ziti';
         }
 
@@ -112,6 +113,7 @@
             z-index: 3;
         }
 
+    
         .flower-item {
             display: flex;
             align-items: center;
@@ -124,7 +126,7 @@
         }
 
         .flower-item span {
-            font-size: 1.5rem;
+            font-size: 2.5vh;
             font-family: '楷体';
             color: black;
         }
@@ -217,36 +219,10 @@
 
 
     <script>
-        document.getElementById('download-btn').onclick = function() {
-        html2canvas(document.body, {
-            logging: true,   // 启用日志输出，便于调试
-            useCORS: true,   // 如果你的页面中有外部图片，启用跨域请求
-            allowTaint: true // 允许污染
-        }).then(function(canvas) {
-            const imgURL = canvas.toDataURL('image/png'); // 获取生成的图片 URL
-            
-            // 创建下载链接
-            const link = document.createElement('a');
-            link.href = imgURL;
-            link.download = 'screenshot.png'; // 设置下载的文件名
-            
-            // 触发点击事件（在移动设备上模拟用户点击下载）
-            if (typeof link.download === 'undefined') {
-                // 如果无法使用 `download` 属性，模拟一个普通链接跳转下载
-                window.location = imgURL;
-            } else {
-                // 在移动设备上触发下载
-                link.click();
-            }
-        }).catch(function(error) {
-            console.error("截图失败:", error);
-        });
-    };
-    console.log(1); 
-    console.log(html2canvas.version);  // 查看当前加载的版本
+      
 
         function goBack() {
-            window.location.href = "./ch.html";
+            window.location.href = "./chahua.html";
         }
 
         // 当页面加载时执行

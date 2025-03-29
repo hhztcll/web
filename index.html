@@ -123,45 +123,79 @@
       <div class="hint">双指滑动拉开帷幕</div>
     </div>
 
-    <script>
-      let startTouch = null;
-
-      $(document).ready(function() {
-        // 双指触摸开始时记录位置
-        $('body').on('touchstart', function(e) {
-          if (e.touches.length === 2) {
-            startTouch = { 
-              x: e.touches[0].clientX - e.touches[1].clientX, 
-              y: e.touches[0].clientY - e.touches[1].clientY 
-            };
-          }
-        });
-
-        // 双指滑动时检查并触发动画
-        $('body').on('touchmove', function(e) {
-          if (e.touches.length === 2 && startTouch) {
-            const deltaX = e.touches[0].clientX - e.touches[1].clientX;
-            const deltaY = e.touches[0].clientY - e.touches[1].clientY;
-
-            const distX = Math.abs(deltaX - startTouch.x);
-            const distY = Math.abs(deltaY - startTouch.y);
-
-            if (distX > 50 || distY > 50) {
-              // 使用 jQuery 的 fadeOut 来淡出元素
+        <script>
+          let startTouch = null;
+          let isMouseDown = false;
+          let startMousePos = null;
+     
+          $(document).ready(function() {
+            // 添加鼠标按下事件
+            $('body').on('mousedown', function(e) {
+              isMouseDown = true;
+              startMousePos = { x: e.clientX, y: e.clientY };
+            });
+     
+            // 添加鼠标移动事件
+            $('body').on('mousemove', function(e) {
+              if (isMouseDown && startMousePos) {
+                const deltaX = e.clientX - startMousePos.x;
+                const deltaY = e.clientY - startMousePos.y;
+                
+                // 如果鼠标移动超过50像素则触发跳转
+                if (Math.abs(deltaX) > 50 || Math.abs(deltaY) > 50) {
+                  triggerTransition();
+                }
+              }
+            });
+     
+            // 添加鼠标释放事件
+            $('body').on('mouseup', function() {
+              isMouseDown = false;
+              startMousePos = null;
+            });
+     
+            // 保留原有的触摸事件
+            $('body').on('touchstart', function(e) {
+              if (e.touches.length === 2) {
+                startTouch = { 
+                  x: e.touches[0].clientX - e.touches[1].clientX, 
+                  y: e.touches[0].clientY - e.touches[1].clientY 
+                };
+              }
+            });
+     
+            $('body').on('touchmove', function(e) {
+              if (e.touches.length === 2 && startTouch) {
+                const deltaX = e.touches[0].clientX - e.touches[1].clientX;
+                const deltaY = e.touches[0].clientY - e.touches[1].clientY;
+     
+                const distX = Math.abs(deltaX - startTouch.x);
+                const distY = Math.abs(deltaY - startTouch.y);
+     
+                if (distX > 50 || distY > 50) {
+                  triggerTransition();
+                }
+              }
+            });
+     
+            // 统一的跳转触发函数
+            function triggerTransition() {
               $('.zhi, .zhi1, .xia, .shang').fadeOut(1000, function() {
-                window.location.href = "2.html"; // 动画完成后跳转
+                window.location.href = "2.html";
               });
-              // 触发提示框的消失
               $('.hint').addClass('fade-out');
+              
+              // 重置触摸和鼠标状态
+              startTouch = null;
+              isMouseDown = false;
+              startMousePos = null;
             }
-          }
-        });
-        
-        // 页面加载时，提示框显示 4 秒后自动消失
-        setTimeout(function() {
-          $('.hint').addClass('fade-out');
-        }, 4500); 
-      });
-    </script>
+     
+            // 保留原有的提示框自动消失逻辑
+            setTimeout(function() {
+              $('.hint').addClass('fade-out');
+            }, 4500); 
+          });
+        </script>
   </body>
 </html>

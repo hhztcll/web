@@ -323,6 +323,39 @@
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script>
 
+document.addEventListener("DOMContentLoaded", function () {
+    const carouselContainer = document.querySelector(".carousel-container");
+    const images = carouselContainer.querySelectorAll("img");
+    let imagesLoaded = 0;
+
+    function checkImagesLoaded() {
+        imagesLoaded++;
+        if (imagesLoaded === images.length) {
+            console.log("所有图片加载完成，初始化轮播...");
+            initCarousel();
+        }
+    }
+
+    images.forEach(img => {
+        if (img.complete) {
+            checkImagesLoaded();
+        } else {
+            img.onload = checkImagesLoaded;
+            img.onerror = function () {
+                console.error("图片加载失败：", img.src);
+                checkImagesLoaded();
+            };
+        }
+    });
+
+    function initCarousel() {
+        // 确保轮播初始化在所有图片加载后执行
+        carouselContainer.style.opacity = "1";  // 先隐藏，等加载完成后显示
+    }
+});
+
+// 你的其他 script 代码保持不变
+
 
 
     var isMusicPlaying = false;
@@ -635,7 +668,7 @@ if (flowerCount === 2) {
 
     // 点击 wc.png 后跳转到 fenxiang1.html
     wcImage.addEventListener('click', function () {
-        window.location.href = './fenxiang1.html';
+        window.location.href = './end.html';
     });
 }
 
