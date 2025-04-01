@@ -180,7 +180,7 @@
 
     /* 阴影遮盖层样式 */
     .overlay {
-      position: fixed;
+      position: absolute;
       top: 0;
       left: 0;
       width: 100%;
@@ -191,66 +191,63 @@
       opacity: 0;
       /*0.5s内过渡出现和消失*/
       transition: opacity 0.3s ease-in-out;
-      
-    
     }
 
     #guide-img {
-   position: absolute;
-   z-index: 15;
-  
-   transform: translateX(-50%);
-  
-   height: auto; /* 保持比例 */
-   display: none;
-}
-/* 新的虚线图片样式 */
-#xuxian-img {
-  position: absolute;
-  z-index: 15; /* 确保它在其它元素上面 */
-  transform: translateX(-50%);
-  height: auto; /* 保持比例 */
-  display: none; /* 初始不显示 */
-}
-/* 第二个遮盖层的文字样式 */
-#new-overlay-text {
-  color: white;
-  font-size: 20px;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  line-height: 30px;
-  width: 80%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  font-family: 'ziti';
-}
+      position: absolute;
+      z-index: 15;
+      transform: translateX(-50%);
+      height: auto; /* 保持比例 */
+      display: none;
+    }
 
-@font-face {
+    /* 新的虚线图片样式 */
+    #xuxian-img {
+      position: absolute;
+      z-index: 15; /* 确保它在其它元素上面 */
+      transform: translateX(-50%);
+      height: auto; /* 保持比例 */
+      display: none; /* 初始不显示 */
+    }
+
+    /* 第二个遮盖层的文字样式 */
+    #new-overlay-text {
+      color: white;
+      font-size: 20px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      line-height: 30px;
+      width: 80%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      font-family: 'ziti';
+    }
+
+    @font-face {
       font-family: 'ziti';
       src: url('./img/c283-腾祥铁山楷书简.ttf');
     }
 
-.carousel-item {
-  position: relative;
-}
+    .carousel-item {
+      position: relative;
+    }
 
+    /* 轮播项中的指示图片 */
+    .carousel-item .indicator {
+      position: absolute;
+      top: -40px; /* 设置相对位置 */
+      left: 50%; /* 居中显示 */
+      transform: translateX(-50%) scale(1.5); /* 确保居中 */
+      width: 100px; /* 控制指示图片基础宽度 */
+      z-index: 5; /* 确保指示图片在花器或花朵上方 */
+    }
 
-/* 轮播项中的指示图片 */
-.carousel-item .indicator {
-  position: absolute;
-  top: -40px; /* 设置相对位置 */
-  left: 50%; /* 居中显示 */
-  transform: translateX(-50%) scale(1.5); /* 确保居中 */
-  width: 100px; /* 控制指示图片基础宽度 */
-  z-index: 5; /* 确保指示图片在花器或花朵上方 */
-}
- @keyframes pulse {
-    0% { transform: translate(-50%, -50%) scale(1); }
-    50% { transform: translate(-50%, -50%) scale(1.2); }
-    100% { transform: translate(-50%, -50%) scale(1); }
- }
-
+    @keyframes pulse {
+      0% { transform: translate(-50%, -50%) scale(1); }
+      50% { transform: translate(-50%, -50%) scale(1.2); }
+      100% { transform: translate(-50%, -50%) scale(1); }
+    }
   </style>
 </head>
 <body>
@@ -259,18 +256,19 @@
 
   <!-- 指引图片 -->
   <img id="guide-img" src="./img/指引手.png" alt="指引" />
-<!-- 新增的虚线图片 -->
-<img id="xuxian-img" src="./img/xuxian.png" alt="虚线" />
-<div id="new-overlay" class="overlay">
-  <!-- 第二个遮盖层 -->
-  <div id="new-overlay-text">
-    <!-- 显示提示文字 -->
-    请分别搭配好花器、花盟主<br>和花客卿，定制属于自己的插花吧<br>
-    <br>
-    <br>
-    长按花器和花有彩蛋哦~
+  <!-- 新增的虚线图片 -->
+  <img id="xuxian-img" src="./img/xuxian.png" alt="虚线" />
+  <div id="new-overlay" class="overlay">
+    <!-- 第二个遮盖层 -->
+    <div id="new-overlay-text">
+      <!-- 显示提示文字 -->
+      请分别搭配好花器、花盟主<br>和花客卿，定制属于自己的插花吧<br>
+      <br>
+      <br>
+      长按花器和花有彩蛋哦~
+    </div>
   </div>
-</div>
+
   <!-- 背景图 -->
   <div class="container">
     <img src="./img/bj1.png" alt="背景图" class="beijin">
@@ -281,27 +279,27 @@
         <!-- 第一组图片 - 花器 -->
         <div class="carousel-item">
           <img src="./img/指示1.png" alt="指示1" class="draggable indicator" id="indicator1" />
-            <img src="./img/hl.png" alt="花器1" class="draggable vase" id="img1" draggable="true">
-            <img src="./img/hp.png" alt="花器2" class="draggable vase" id="img2" draggable="true">
-            <img src="./img/hpi.png" alt="花器3" class="draggable vase" id="img3" draggable="true">
-            <img src="./img/ht.png" alt="花器4" class="draggable vase" id="img4" draggable="true">
+          <img src="./img/hl.png" alt="花器1" class="draggable vase" id="img1" draggable="true">
+          <img src="./img/hp.png" alt="花器2" class="draggable vase" id="img2" draggable="true">
+          <img src="./img/hpi.png" alt="花器3" class="draggable vase" id="img3" draggable="true">
+          <img src="./img/ht.png" alt="花器4" class="draggable vase" id="img4" draggable="true">
         </div>
         <!-- 第二组图片 - 花朵 -->
         <div class="carousel-item">
           <img src="./img/指示2.png" alt="指示2" class="draggable indicator" id="indicator2" />
-            <img src="./img/hxc.png" alt="含羞草" class="draggable flower" id="img5" draggable="true">
-            <img src="./img/lh.png" alt="兰花" class="draggable flower" id="img6" draggable="true">
-            <img src="./img/yg.png" alt="岩桂" class="draggable flower" id="img7" draggable="true">
+          <img src="./img/hxc.png" alt="含羞草" class="draggable flower" id="img5" draggable="true">
+          <img src="./img/lh.png" alt="兰花" class="draggable flower" id="img6" draggable="true">
+          <img src="./img/yg.png" alt="岩桂" class="draggable flower" id="img7" draggable="true">
         </div>
         <!-- 第三组图片 - 花朵 -->
         <div class="carousel-item">
           <img src="./img/指示3.png" alt="指示3" class="draggable indicator" id="indicator3" />
-            <img src="./img/jh.png" alt="菊花" class="draggable flower" id="img9" draggable="true">
-            <img src="./img/mh.png" alt="梅花" class="draggable flower" id="img10" draggable="true">
-            <img src="./img/md.png" alt="牡丹" class="draggable flower" id="img11" draggable="true">
-            <img src="./img/ss.png" alt="松树" class="draggable flower" id="img12" draggable="true">
+          <img src="./img/jh.png" alt="菊花" class="draggable flower" id="img9" draggable="true">
+          <img src="./img/mh.png" alt="梅花" class="draggable flower" id="img10" draggable="true">
+          <img src="./img/md.png" alt="牡丹" class="draggable flower" id="img11" draggable="true">
+          <img src="./img/ss.png" alt="松树" class="draggable flower" id="img12" draggable="true">
         </div>
-    </div>
+      </div>
     </div>
 
     <!-- 背景音乐控制按钮 -->
@@ -317,8 +315,6 @@
 
     <!-- 边框图 -->
     <img class="border-image" src="./img/xiak.jpg" alt="边框图">
-
-  
   </div>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script>
@@ -353,8 +349,6 @@ document.addEventListener("DOMContentLoaded", function () {
         carouselContainer.style.opacity = "1";  // 先隐藏，等加载完成后显示
     }
 });
-
-// 你的其他 script 代码保持不变
 
 
 
@@ -664,7 +658,7 @@ if (flowerCount === 2) {
     // 添加 "呼吸" 动画效果
     wcImage.style.animation = 'pulse 1.2s infinite ease-in-out';
 
-    document.body.appendChild(wcImage);
+    document.querySelector('.container').appendChild(wcImage);
 
     // 点击 wc.png 后跳转到 fenxiang1.html
     wcImage.addEventListener('click', function () {
@@ -691,202 +685,242 @@ if (flowerCount === 2) {
 
 // 获取所有花器和花朵图片
 const vaseImages = document.querySelectorAll('.vase');
-const flowerImages = document.querySelectorAll('.flower');
+    const flowerImages = document.querySelectorAll('.flower');
 
-// 创建一个新的遮盖层
-const newOverlayLayer = document.createElement('div');
-newOverlayLayer.style.position = 'fixed';
-newOverlayLayer.style.top = '0';
-newOverlayLayer.style.left = '0';
-newOverlayLayer.style.width = '100%';
-newOverlayLayer.style.height = '100%';
-newOverlayLayer.style.backgroundColor = 'rgba(0, 0, 0, 0.5)'; // 半透明黑色背景
-newOverlayLayer.style.zIndex = '99';
-newOverlayLayer.style.display = 'none'; // 初始状态下不显示
-newOverlayLayer.style.transition = 'opacity 0.5s ease'; // 添加渐变效果
+    // 创建一个新的遮盖层
+    const newOverlayLayer = document.createElement('div');
+    newOverlayLayer.style.position = 'absolute';
+    newOverlayLayer.style.top = '0';
+    newOverlayLayer.style.left = '0';
+    newOverlayLayer.style.width = '100%';
+    newOverlayLayer.style.height = '100%';
+    newOverlayLayer.style.backgroundColor = 'rgba(0, 0, 0, 0.5)'; // 半透明黑色背景
+    newOverlayLayer.style.zIndex = '99';
+    newOverlayLayer.style.display = 'none'; // 初始状态下不显示
+    newOverlayLayer.style.transition = 'opacity 0.5s ease'; // 添加渐变效果
 
-// 创建提示图片
-const overlayImage = document.createElement('img');
-overlayImage.style.position = 'absolute';
-overlayImage.style.zIndex = '100';
-overlayImage.style.top = '50%';
-overlayImage.style.left = '50%';
-overlayImage.style.transform = 'translate(-50%, -50%)';
-overlayImage.style.width = '30vh';  // 设置宽度为视口高度的 30%
-overlayImage.style.height = 'auto';  // 高度自动保持比例
-overlayImage.style.transition = 'opacity 0.5s ease'; // 添加渐变效果
+    // 创建提示图片
+    const overlayImage = document.createElement('img');
+    overlayImage.style.position = 'absolute';
+    overlayImage.style.zIndex = '100';
+    overlayImage.style.top = '50%';
+    overlayImage.style.left = '50%';
+    overlayImage.style.transform = 'translate(-50%, -50%)';
+    overlayImage.style.width = '30vh';  // 设置宽度为视口高度的 30%
+    overlayImage.style.height = 'auto';  // 高度自动保持比例
+    overlayImage.style.transition = 'opacity 0.5s ease'; // 添加渐变效果
 
-// 将提示图片添加到遮盖层
-newOverlayLayer.appendChild(overlayImage);
+    // 将提示图片添加到遮盖层
+    newOverlayLayer.appendChild(overlayImage);
 
-// 将遮盖层添加到页面
-document.body.appendChild(newOverlayLayer);
+    // 将遮盖层添加到页面
+    document.body.appendChild(newOverlayLayer);
 
-// 用于控制长按的时间
-let pressTimer;
-const pressDuration = 700; // 长按时间 700 毫秒
+    // 用于控制长按的时间
+    let pressTimer;
+    const pressDuration = 700; // 长按时间 700 毫秒
 
-// 处理长按事件
-function handleLongPress(element) {
-    pressTimer = setTimeout(function () {
-        console.log('长按开始');  // 调试输出
-        // 显示新的遮盖层和提示图片
+    // 处理长按事件
+    function handleLongPress(element) {
+      pressTimer = setTimeout(() => {
         newOverlayLayer.style.display = 'block';
-        overlayImage.style.opacity = '1'; // 设置提示图片可见
-        newOverlayLayer.style.opacity = '1'; // 设置遮盖层可见
+        overlayImage.style.opacity = '1';
+        newOverlayLayer.style.opacity = '1';
 
         // 检查元素的路径并修改提示图片
         console.log('element.src:', element.src);  // 打印路径，检查是否正确
         if (element.src.includes('hl.png')) {
-            overlayImage.src = './img/tshl.png'; 
+          overlayImage.src = './img/tshl.png';
         } else if (element.src.includes('hp.png')) {
-            overlayImage.src = './img/tshp.png'; 
+          overlayImage.src = './img/tshp.png';
         } else if (element.src.includes('hpi.png')) {
-            overlayImage.src = './img/tshpi.png'; 
+          overlayImage.src = './img/tshpi.png';
         } else if (element.src.includes('ht.png')) {
-            overlayImage.src = './img/tsht.png'; 
+          overlayImage.src = './img/tsht.png';
         } else if (element.src.includes('hxc.png')) {
-            overlayImage.src = './img/tshxc.png'; 
+          overlayImage.src = './img/tshxc.png';
         } else if (element.src.includes('lh.png')) {
-            overlayImage.src = './img/tslh.png'; 
+          overlayImage.src = './img/tslh.png';
         } else if (element.src.includes('yg.png')) {
-            overlayImage.src = './img/tsyg.png'; 
+          overlayImage.src = './img/tsyg.png';
         } else if (element.src.includes('jh.png')) {
-            overlayImage.src = './img/tsjh.png'; 
+          overlayImage.src = './img/tsjh.png';
         } else if (element.src.includes('mh.png')) {
-            overlayImage.src = './img/tsmh.png'; 
+          overlayImage.src = './img/tsmh.png';
         } else if (element.src.includes('md.png')) {
-            overlayImage.src = './img/tsmd.png'; 
+          overlayImage.src = './img/tsmd.png';
         } else if (element.src.includes('ss.png')) {
-            overlayImage.src = './img/tsss.png'; 
-        } 
-    }, pressDuration); // 长按超过指定时间显示遮盖层
-}
+          overlayImage.src = './img/tsss.png';
+        }
+      }, pressDuration); // 长按超过指定时间显示遮盖层
+    }
 
-// 监听花器和花朵的长按事件
-const allElements = [...vaseImages, ...flowerImages];
-
-allElements.forEach(element => {
-    element.addEventListener('touchstart', function () {
-        handleLongPress(element);
+    // 监听花器和花朵的长按事件
+    const allElements = [...document.querySelectorAll('.vase, .flower')];
+    allElements.forEach(element => {
+      element.addEventListener('touchstart', () => handleLongPress(element));
+      element.addEventListener('touchend', () => clearTimeout(pressTimer));
+      element.addEventListener('touchcancel', () => clearTimeout(pressTimer));
     });
 
-    element.addEventListener('touchend', function () {
-        // 如果没有长按，清除计时器
-        clearTimeout(pressTimer);
+    document.addEventListener('touchstart', () => {
+      overlayImage.style.opacity = '0';
+      newOverlayLayer.style.opacity = '0';
+      setTimeout(() => newOverlayLayer.style.display = 'none', 500);
     });
 
-    element.addEventListener('touchcancel', function () {
-        // 如果触摸取消，清除计时器
-        clearTimeout(pressTimer);
+    $(document).ready(function () {
+      // 获取指引图片元素
+      const $guideImg = $("#guide-img");
+      const $backgroundImg = $(".beijin");
+      const $overlay = $("#overlay");  // 第一个遮盖层
+      const $xuxianImg = $("#xuxian-img");
+
+      const $newOverlay = $("#new-overlay");  // 新遮盖层
+      const $newOverlayText = $("#new-overlay-text");  // 新遮盖层的提示文字
+
+      // 获取需要调整大小的图片元素
+      const $yiwen = $("#yiwen");
+      const $prevButton = $(".prev img");
+      const $nextButton = $(".next img");
+
+      // 更新遮盖层的大小和位置
+      function updateOverlayPosition() {
+        const beijinRect = $backgroundImg[0].getBoundingClientRect(); // 获取背景图的位置和尺寸
+
+        // 更新第一个遮盖层的大小和位置
+        $overlay.css({
+          position: 'absolute',
+          top: `${beijinRect.top}px`,
+          left: `${beijinRect.left}px`,
+          width: `${beijinRect.width}px`,
+          height: `${beijinRect.height}px`
+        });
+
+        // 更新第二个遮盖层的大小和位置
+        $newOverlay.css({
+          position: 'absolute',
+          top: `${beijinRect.top}px`,
+          left: `${beijinRect.left}px`,
+          width: `${beijinRect.width}px`,
+          height: `${beijinRect.height}px`
+        });
+
+        // 更新长按遮盖层的大小和位置
+        newOverlayLayer.style.top = `${beijinRect.top}px`;
+        newOverlayLayer.style.left = `${beijinRect.left}px`;
+        newOverlayLayer.style.width = `${beijinRect.width}px`;
+        newOverlayLayer.style.height = `${beijinRect.height}px`;
+      }
+
+      // 更新指引图片的位置
+      function updateGuideImgPosition() {
+        const beijinRect = $backgroundImg[0].getBoundingClientRect(); // 获取背景图的位置和尺寸
+
+        const guideImgWidth = beijinRect.width * 0.22; // 指引图片宽度是背景图宽度的20%
+        const guideImgLeft = beijinRect.left + (beijinRect.width * 0.87) - (guideImgWidth / 2); // 左侧位置是背景图左边的80%
+
+        $guideImg.css({
+          left: `${guideImgLeft}px`,
+          top: `${beijinRect.top + (beijinRect.height * 0.55) - ($guideImg.height() / 2)}px`,
+          width: `${guideImgWidth}px`
+        });
+      }
+
+      // 更新虚线图片的位置
+      function updateXuxianPosition() {
+        const beijinRect = $backgroundImg[0].getBoundingClientRect(); // 获取背景图的位置和尺寸
+
+        const xuxianImgWidth = beijinRect.width * 0.5; // 设置虚线图片的宽度
+        const xuxianImgLeft = beijinRect.left + (beijinRect.width * 0.65) - (xuxianImgWidth / 2); // 左侧位置是背景图左边
+
+        $xuxianImg.css({
+          left: `${xuxianImgLeft}px`,
+          top: `${beijinRect.top + (beijinRect.height * 0.67) - ($xuxianImg.height() / 2)}px`,
+          width: `${xuxianImgWidth}px`
+        });
+      }
+
+      // 更新 yiwen、prevButton 和 nextButton 的大小
+      function updateDynamicImageSizes() {
+        const beijinRect = $backgroundImg[0].getBoundingClientRect(); // 获取背景图的位置和尺寸
+
+        // 设置 yiwen 的大小
+        $yiwen.css({
+          width: `${beijinRect.width * 0.08}px`, // 宽度为背景图宽度的 8%
+          height: 'auto'
+        });
+
+        // 设置 prevButton 的大小
+        $prevButton.css({
+          width: `${beijinRect.width * 0.1}px`, // 宽度为背景图宽度的 5%
+          height: 'auto'
+        });
+
+        // 设置 nextButton 的大小
+        $nextButton.css({
+          width: `${beijinRect.width * 0.1}px`, // 宽度为背景图宽度的 5%
+          height: 'auto'
+        });
+      }
+
+      // 在页面加载时，首先调用更新位置的函数
+      $(window).on("load", function () {
+        updateOverlayPosition();
+        updateGuideImgPosition();
+        updateXuxianPosition();
+        updateDynamicImageSizes();
+      });
+
+      // 防抖：在窗口大小变化时，使用防抖技术限制resize事件的频繁触发
+      let resizeTimeout;
+      $(window).on("resize", function () {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(function () {
+          updateOverlayPosition();
+          updateGuideImgPosition();
+          updateXuxianPosition();
+          updateDynamicImageSizes();
+        }, 200); // 200ms 延时
+      });
+
+      // 获取指引图片显示与隐藏的逻辑
+      $overlay.on("click", function () {
+        $overlay.css("opacity", "0"); // 使第一个遮盖层渐隐
+        $guideImg.hide(); // 隐藏指引图片
+        $xuxianImg.hide(); // 隐藏续线图片
+
+        // 延时隐藏第一个遮盖层，等待渐隐完成
+        setTimeout(function () {
+          $overlay.hide(); // 等待过渡效果完成后隐藏第一个遮盖层
+        }, 600);
+
+        // 延时显示第二个遮盖层，确保第一个遮盖层完全消失后才显示第二个遮盖层
+        setTimeout(function () {
+          $newOverlay.show().css("opacity", "1"); // 显示第二个遮盖层并渐显
+        }, 400);
+      });
+
+      // 点击第二个遮盖层时隐藏它
+      $newOverlay.on("click", function () {
+        $newOverlay.css("opacity", "0"); // 渐隐第二个遮盖层
+
+        // 延时隐藏第二个遮盖层
+        setTimeout(function () {
+          $newOverlay.hide(); // 等待过渡效果完成后隐藏第二个遮盖层
+        }, 500);
+      });
+
+      // 假设在页面加载时，初始显示遮盖层和指引图片
+      showOverlay();
+
+      // 显示第一个遮盖层
+      function showOverlay() {
+        $overlay.show().css("opacity", "1"); // 显示第一个遮盖层并渐显
+        $guideImg.show(); // 显示指引图片
+        $xuxianImg.show(); // 显示续线图片
+      }
     });
-});
-
-// 点击屏幕的任何地方时隐藏新的遮盖层和提示图片
-document.addEventListener('touchstart', function () {
-    // 添加渐变消失效果
-    overlayImage.style.opacity = '0'; // 提示图片渐变消失
-    newOverlayLayer.style.opacity = '0'; // 遮盖层渐变消失
-
-    // 在动画结束后隐藏遮盖层和图片
-    setTimeout(function () {
-        newOverlayLayer.style.display = 'none'; // 使遮盖层完全隐藏
-    }, 500); // 500ms后隐藏
-});
-
-
-$(document).ready(function() {
-  // 获取指引图片元素
-  const $guideImg = $("#guide-img");
-  const $backgroundImg = $(".beijin");
-  const $overlay = $("#overlay");  // 第一个遮盖层
-  const $xuxianImg = $("#xuxian-img");
-
-  
-  const $newOverlay = $("#new-overlay");  // 新遮盖层
-  const $newOverlayText = $("#new-overlay-text");  // 新遮盖层的提示文字
-
-  // 获取指引图片显示与隐藏的逻辑
-  $overlay.on("click", function() {
-    $overlay.css("opacity", "0"); // 使第一个遮盖层渐隐
-    $guideImg.hide(); // 隐藏指引图片
-    $xuxianImg.hide(); // 隐藏续线图片
-    
-    // 延时隐藏第一个遮盖层，等待渐隐完成
-    setTimeout(function() {
-      $overlay.hide(); // 等待过渡效果完成后隐藏第一个遮盖层
-    }, 600);
-
-    // 延时显示第二个遮盖层，确保第一个遮盖层完全消失后才显示第二个遮盖层
-    setTimeout(function() {
-      $newOverlay.show().css("opacity", "1"); // 显示第二个遮盖层并渐显
-    }, 400); 
-  });
-
-  // 点击第二个遮盖层时隐藏它
-  $newOverlay.on("click", function() {
-    $newOverlay.css("opacity", "0"); // 渐隐第二个遮盖层
-
-    // 延时隐藏第二个遮盖层
-    setTimeout(function() {
-      $newOverlay.hide(); // 等待过渡效果完成后隐藏第二个遮盖层
-    }, 500);  
-  });
-
-  // 更新指引图片的位置
-  function updateGuideImgPosition() {
-    const beijinRect = $backgroundImg[0].getBoundingClientRect(); // 获取背景图的位置和尺寸
-
-    const guideImgWidth = beijinRect.width * 0.22; // 指引图片宽度是背景图宽度的20%
-    const guideImgLeft = beijinRect.left + (beijinRect.width * 0.87) - (guideImgWidth / 2); // 左侧位置是背景图左边的80%
-
-    $guideImg.css({
-      left: `${guideImgLeft}px`,
-      top: `${beijinRect.top + (beijinRect.height * 0.55) - ($guideImg.height() / 2)}px`,
-      width: `${guideImgWidth}px`
-    });
-  }
-
-  // 更新虚线图片的位置
-  function updateXuxianPosition() {
-    const beijinRect = $backgroundImg[0].getBoundingClientRect(); // 获取背景图的位置和尺寸
-
-    const xuxianImgWidth = beijinRect.width * 0.5; // 设置虚线图片的宽度
-    const xuxianImgLeft = beijinRect.left + (beijinRect.width * 0.65) - (xuxianImgWidth / 2); // 左侧位置是背景图左边
-
-    $xuxianImg.css({
-      left: `${xuxianImgLeft}px`,
-      top: `${beijinRect.top + (beijinRect.height * 0.67) - ($xuxianImg.height() / 2)}px`,
-      width: `${xuxianImgWidth}px`
-    });
-  }
-
-  // 在页面加载时，首先调用更新位置的函数
-  $(window).on("load", function() {
-    updateGuideImgPosition();
-    updateXuxianPosition();
-  });
-
-  // 防抖：在窗口大小变化时，使用防抖技术限制resize事件的频繁触发
-  let resizeTimeout;
-  $(window).on("resize", function() {
-    clearTimeout(resizeTimeout);
-    resizeTimeout = setTimeout(function() {
-      updateGuideImgPosition();
-      updateXuxianPosition();
-    }, 200); // 200ms 延时
-  });
-
-  // 假设在页面加载时，初始显示遮盖层和指引图片
-  showOverlay();
-
-  // 显示第一个遮盖层
-  function showOverlay() {
-    $overlay.show().css("opacity", "1"); // 显示第一个遮盖层并渐显
-    $guideImg.show(); // 显示指引图片
-    $xuxianImg.show(); // 显示续线图片
-  }
-});
 
   </script>
 </body>
