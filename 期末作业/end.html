@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>分享界面</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+        /* 设置html和body的宽高以及去除默认边距 */
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* 容器设置 */
+        .container {
+            position: relative;
+            width: fit-content;
+            max-width: 100%;
+            margin: 0 auto;
+            text-align: center;
+            overflow: hidden;
+            height: 100vh;
+        }
+
+        /* 背景图片设置 */
+        .beijin {
+            max-width: 100%;
+            max-height: 100%;
+            height: 100vh;
+            position: relative; 
+            z-index: 1; 
+        }
+
+        /* 居中的意境图片 */
+        .central-image {
+            position: absolute;
+            top: 78%; /* 垂直居中 */
+            left: 50%; /* 水平居中 */
+            transform: translate(-50%, -50%);
+            width: 80%;
+            max-width: 600px;
+            z-index: 2;
+        }
+
+        /* 底部的图片 */
+        .bottom-image {
+            position: absolute;
+            bottom: 5%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60%;
+            max-width: 500px;
+            z-index: 2;
+            opacity: 0;
+        }
+
+        /* 左下角返回按钮 */
+        .back-button {
+            position: absolute;
+            bottom: 5%;
+            left: 5%;
+            width: 13vw;
+            height: auto;
+            max-width: 100px;
+            
+            z-index: 3;
+        }
+
+        /* 中间显示文字 */
+        .text-container {
+            position: absolute;
+            top: 50%; /* 调整文字相对背景的位置 */
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            z-index: 3;
+        }
+
+        /* 每一行文字的样式 */
+        .text-line {
+            margin: 10px 0;
+            
+            font-family: 'ziti';
+        }
+
+        #text-line1 {
+            font-size: 4vh;
+            color: black;
+        }
+
+        #text-line2 {
+            font-size: 2vh;
+            color: #831825;
+        }
+
+        @font-face {
+            font-family: 'ziti';
+            src: url('./img/c283-腾祥铁山楷书简.ttf');
+        }
+
+        /* 小花容器 */
+        .small-flower-container {
+            position: absolute;
+            bottom: 30%;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            justify-content: space-between;
+            width: 80%;
+            z-index: 3;
+        }
+
+    
+        .flower-item {
+            display: flex;
+            align-items: center;
+        }
+
+        .flower-item img {
+            width: 30%;
+            max-width: 50px;
+            margin-right: 10px;
+        }
+
+        .flower-item span {
+            font-size: 2.5vh;
+            font-family: '楷体';
+            color: black;
+        }
+
+        .flower-display {
+            position: absolute;
+            bottom: 58%;
+            left: 51%;
+            transform: translateX(-50%);
+            width: 45vw;
+            height: auto;
+            max-width: 200px;
+            z-index: 2;
+        }
+
+        /* 图片自适应 */
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        /* 添加动态文本的样式 */
+        .dynamic-text {
+            position: absolute;
+            top: 6%; 
+            left: 50%; 
+            transform: translateX(-50%); /* 确保文本水平居中 */
+            color: black;
+            font-size: 1.2vh; 
+            z-index: 3; 
+            width: 70%; /* 设置最大宽度，避免文本超出图片边界 */
+            word-wrap: break-word; /* 使长单词在合适的位置换行 */
+            white-space: normal; /* 允许文本换行 */
+            line-height: 1.5; 
+            padding: 10px; 
+            text-align: left; 
+            font-family: '';
+        }
+       
+    </style>
+     
+</head>
+<body>
+
+    <div class="container">
+        <!-- 背景图片 -->
+        <img src="./img/bj.jpg" alt="背景图" class="beijin">
+        <!-- 显示文字 -->
+        <div class="text-container">
+            <div class="text-line" id="text-line1">菊影含羞</div>
+            <div class="text-line" id="text-line2">幽思缕缕伴香浮</div>
+        </div>
+
+        <!-- 小花容器，横向分布三个小花 -->
+        <div class="small-flower-container">
+            <div class="flower-item">
+                <img src="./img/小花.png" alt="小花" class="zj">
+                <span>雅逸</span>
+            </div>
+            <div class="flower-item">
+                <img src="./img/小花.png" alt="小花" class="zj">
+                <span>静幽</span>
+            </div>
+            <div class="flower-item">
+                <img src="./img/小花.png" alt="小花" class="zj">
+                <span>秀韵</span>
+            </div>
+        </div>
+
+        <!-- 居中的意境图片 -->
+        <div class="central-image">
+            <img src="./img/意境.png" alt="意境图片" />
+        </div>
+
+        <!-- 底部的图片 -->
+        <div class="bottom-image">
+            <img src="./img/下载图片.png" id="download-btn" alt="下载页面截图" style="cursor: pointer;"/>
+        </div>
+
+        <!-- 显示组合花图片 -->
+        <div class="flower-display" id="flower-display"></div>
+
+        <!-- 左下角返回按钮 -->
+        <div class="back-button" onclick="goBack()">
+            <img src="./img/返回.png" alt="返回按钮" />
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+
+
+
+    <script>
+      
+
+        function goBack() {
+            window.location.href = "./chahua.html";
+        }
+
+        // 当页面加载时执行
+        window.onload = function() {
+            // 检查 localStorage 中是否有保存的最终组合图片路径
+            const finalFlowerCombinationSrc = localStorage.getItem('finalFlowerCombination');
+            
+            if (finalFlowerCombinationSrc) {
+                const flowerImg = document.createElement('img');
+                flowerImg.src = finalFlowerCombinationSrc;
+                flowerImg.alt = '组合花';
+                flowerImg.style.width = '100%'; 
+                flowerImg.style.height = 'auto'; 
+                
+                flowerImg.onerror = function() {
+                    console.error(`无法加载图片: ${this.src}`);
+                    this.style.display = 'none';
+                    alert('未能加载组合图片，请尝试重新创建组合。');
+                };
+
+                document.getElementById('flower-display').appendChild(flowerImg);
+        
+                // 根据图片路径动态修改意境图片上的文本
+                const centralImage = document.querySelector('.central-image');
+                const textElement = document.createElement('div');
+                textElement.className = 'dynamic-text'; // 添加类名以便于CSS样式管理
+                
+                // 判断路径并插入相应文本
+                if (finalFlowerCombinationSrc.includes('hl_hxc_jh.png') || finalFlowerCombinationSrc.includes('hl_jh_hxc.png')|| finalFlowerCombinationSrc.includes('hp_jh_hxc.png')|| finalFlowerCombinationSrc.includes('hp_hxc_jh.png')|| finalFlowerCombinationSrc.includes('hpi_hxc_jh.png')|| finalFlowerCombinationSrc.includes('hpi_jh_hxc.png')|| finalFlowerCombinationSrc.includes('ht_hxc_jh.png')|| finalFlowerCombinationSrc.includes('ht_jh_hxc.png')) {
+                     // 修改文本容器中的文字
+                    document.getElementById('text-line1').innerText = '菊影含羞';
+                    document.getElementById('text-line2').innerText = '幽思缕缕伴香浮';
+
+                    // 不替换整个小花容器，直接为每个小花添加文本
+                    const flowerItems = document.querySelectorAll('.small-flower-container .flower-item');
+                    flowerItems[0].querySelector('span').innerText = '雅逸';
+                    flowerItems[1].querySelector('span').innerText = '静幽';
+                    flowerItems[2].querySelector('span').innerText = '秀韵';
+                    textElement.innerText = '菊花以其丰富的色彩和多样的姿态，展现出高雅、坚韧的气质，仿佛一位历经岁月沉淀却依然风姿绰约的雅士，散发着淡淡的悠然与宁静，为整个作品奠定了沉稳而优雅的基调;而含羞草则带着一种灵动的俏皮与含蓄的温柔，为作品增添了几分活泼与婉约的韵味。';
+                   
+                } else if (finalFlowerCombinationSrc.includes('hl_lh_jh.png') || finalFlowerCombinationSrc.includes('hl_jh_lh.png')||finalFlowerCombinationSrc.includes('hp_lh_jh.png') ||finalFlowerCombinationSrc.includes('hp_jh_lh.png')||finalFlowerCombinationSrc.includes('hpi_lh_jh.png') ||
+                finalFlowerCombinationSrc.includes('hpi_jh_lh.png') ||finalFlowerCombinationSrc.includes('ht_lh_jh.png') ||finalFlowerCombinationSrc.includes('ht_jh_lh.png')) {
+                     // 修改文本容器中的文字
+                    document.getElementById('text-line1').innerText = '菊兰雅韵';
+                    document.getElementById('text-line2').innerText = '雅韵飘香满庭芳';
+
+                    // 不替换整个小花容器，直接为每个小花添加文本
+                    const flowerItems = document.querySelectorAll('.small-flower-container .flower-item');
+                    flowerItems[0].querySelector('span').innerText = '纯净';
+                    flowerItems[1].querySelector('span').innerText = '坚韧';
+                    flowerItems[2].querySelector('span').innerText = '超脱';
+                    textElement.innerText = '菊花，以其傲霜独立的姿态和丰富多彩的品种，自古以来便是文人墨客笔下的常客。它象征着坚韧不拔、高洁不屈的精神。在插花中，兰花常被用来营造一种静谧、清幽的氛围，让人感受到心灵的净化与升华。';
+                   
+                }else if (finalFlowerCombinationSrc.includes('hl_yg_jh.png') ||
+                finalFlowerCombinationSrc.includes('hl_jh_yg.png') ||finalFlowerCombinationSrc.includes('hp_yg_jh.png') ||
+                finalFlowerCombinationSrc.includes('hp_jh_yg.png') ||finalFlowerCombinationSrc.includes('hpi_yg_jh.png') ||
+                finalFlowerCombinationSrc.includes('hpi_jh_yg.png') ||  finalFlowerCombinationSrc.includes('ht_yg_jh.png') || finalFlowerCombinationSrc.includes('ht_jh_yg.png')) {
+            // 修改文本容器中的文字
+            document.getElementById('text-line1').innerText = '菊桂馨秋';
+            document.getElementById('text-line2').innerText = '馨香满室韵无穷';
+
+            // 不替换整个小花容器，直接为每个小花添加文本
+            const flowerItems = document.querySelectorAll('.small-flower-container .flower-item');
+            flowerItems[0].querySelector('span').innerText = '吉祥';
+            flowerItems[1].querySelector('span').innerText = '幸福';
+            flowerItems[2].querySelector('span').innerText = '安康';
+            textElement.innerText = '在插花艺术中，菊花常被用来表达淡泊名利、超脱世俗的高雅情操，或是寓意长寿、吉祥的美好愿望。岩桂同样具有坚韧的特质，其花朵虽小但香气浓郁，象征着内在的力量和坚韧不拔的意志。';
+        } else if (finalFlowerCombinationSrc.includes('hl_yg_md.png') ||
+        finalFlowerCombinationSrc.includes('hl_md_yg.png') || finalFlowerCombinationSrc.includes('hp_yg_md.png') || finalFlowerCombinationSrc.includes('hp_md_yg.png') || finalFlowerCombinationSrc.includes('hpi_yg_md.png') || finalFlowerCombinationSrc.includes('hpi_md_yg.png') || finalFlowerCombinationSrc.includes('ht_yg_md.png') || finalFlowerCombinationSrc.includes('ht_md_yg.png')) {
+            // 修改文本容器中的文字
+            document.getElementById('text-line1').innerText = '桂冠牡丹';
+            document.getElementById('text-line2').innerText = '华贵清雅韵悠长';
+
+            // 不替换整个小花容器，直接为每个小花添加文本
+            const flowerItems = document.querySelectorAll('.small-flower-container .flower-item');
+            flowerItems[0].querySelector('span').innerText = '华贵';
+            flowerItems[1].querySelector('span').innerText = '清雅';
+            flowerItems[2].querySelector('span').innerText = '雍容';
+            textElement.innerText = '牡丹，被誉为“花中之王”，其花朵繁茂华丽，色彩丰富，象征着富贵、繁荣与尊贵。而岩桂，以其清新雅致的香气和坚韧的品格，作品既体现了牡丹的华丽与大气，又融入了岩桂的清新与雅致，形成了一种独特的审美体验。';
+        } else if (finalFlowerCombinationSrc.includes('hl_lh_md.png') ||
+        finalFlowerCombinationSrc.includes('hl_md_lh.png') || finalFlowerCombinationSrc.includes('hp_lh_md.png') || finalFlowerCombinationSrc.includes('hp_md_lh.png') || finalFlowerCombinationSrc.includes('hpi_lh_md.png') || finalFlowerCombinationSrc.includes('hpi_md_lh.png') || finalFlowerCombinationSrc.includes('ht_lh_md.png') || finalFlowerCombinationSrc.includes('ht_md_lh.png')) {
+            // 修改文本容器中的文字
+            document.getElementById('text-line1').innerText = '兰韵牡华';
+            document.getElementById('text-line2').innerText = '清雅风华共此秋';
+
+            // 不替换整个小花容器，直接为每个小花添加文本
+            const flowerItems = document.querySelectorAll('.small-flower-container .flower-item');
+            flowerItems[0].querySelector('span').innerText = '尊贵';
+            flowerItems[1].querySelector('span').innerText = '高洁';
+            flowerItems[2].querySelector('span').innerText = '淡泊';
+            textElement.innerText = '牡丹，以其雍容华贵、绚烂多彩的姿态，被誉为“花中之王”，象征着富贵、繁荣与尊贵。而兰花，则以其高洁、清雅、幽香之姿，赢得了“王者之香”的美誉，代表着高洁、坚韧与淡泊。作品寓意着尊贵与高雅、繁华与淡泊的完美融合。';
+        } else if (finalFlowerCombinationSrc.includes('hl_hxc_md.png') ||
+        finalFlowerCombinationSrc.includes('hl_md_hxc.png') || finalFlowerCombinationSrc.includes('hp_hxc_md.png') || finalFlowerCombinationSrc.includes('hp_md_hxc.png') || finalFlowerCombinationSrc.includes('hpi_hxc_md.png') || finalFlowerCombinationSrc.includes('hpi_md_hxc.png') || finalFlowerCombinationSrc.includes('ht_hxc_md.png') || finalFlowerCombinationSrc.includes('ht_md_hxc.png')) {
+            // 修改文本容器中的文字
+            document.getElementById('text-line1').innerText = '贵敛芳华';
+            document.getElementById('text-line2').innerText = '敛尽风华映日娇';
+
+            // 不替换整个小花容器，直接为每个小花添加文本
+            const flowerItems = document.querySelectorAll('.small-flower-container .flower-item');
+            flowerItems[0].querySelector('span').innerText = '含蓄';
+            flowerItems[1].querySelector('span').innerText = '内秀';
+            flowerItems[2].querySelector('span').innerText = '抚媚';
+            textElement.innerText = '牡丹，以其雍容华贵、绚烂多彩之姿，被誉为“花中之王”，象征着富贵、繁荣与尊荣。而含羞草，则以其独特的羞涩之态和细腻的触感，给人以温柔、谦逊与内敛之感。能感受到一种精神上的平衡与和谐。';
+        } else if (finalFlowerCombinationSrc.includes('hl_hxc_mh.png') ||
+        finalFlowerCombinationSrc.includes('hl_mh_hxc.png') || finalFlowerCombinationSrc.includes('hp_hxc_mh.png') || finalFlowerCombinationSrc.includes('hp_mh_hxc.png') || finalFlowerCombinationSrc.includes('hpi_hxc_mh.png') || finalFlowerCombinationSrc.includes('hpi_mh_hxc.png') || finalFlowerCombinationSrc.includes('ht_hxc_mh.png') || finalFlowerCombinationSrc.includes('ht_mh_hxc.png')) {
+            // 修改文本容器中的文字
+            document.getElementById('text-line1').innerText = '梅羞雅韵';
+            document.getElementById('text-line2').innerText = '雅韵温婉映风华';
+
+            // 不替换整个小花容器，直接为每个小花添加文本
+            const flowerItems = document.querySelectorAll('.small-flower-container .flower-item');
+            flowerItems[0].querySelector('span').innerText = '内敛';
+            flowerItems[1].querySelector('span').innerText = '坚忍';
+            flowerItems[2].querySelector('span').innerText = '不屈';
+            textElement.innerText = '梅花，以其傲骨凌霜、坚韧不拔之姿，象征着高洁、坚强与不屈。而含羞草，则以其独特的羞涩之态和细腻的触感，给人以温柔、谦逊与内敛之感。展现了自然界中刚柔并济的和谐之美，更寓意着坚韧与温柔、高洁与谦逊的完美结合。';
+        } else if (finalFlowerCombinationSrc.includes('hl_lh_mh.png') ||
+        finalFlowerCombinationSrc.includes('hl_mh_lh.png') || finalFlowerCombinationSrc.includes('hp_lh_mh.png') || finalFlowerCombinationSrc.includes('hp_mh_lh.png') || finalFlowerCombinationSrc.includes('hpi_lh_mh.png') || finalFlowerCombinationSrc.includes('hpi_mh_lh.png') || finalFlowerCombinationSrc.includes('ht_lh_mh.png') || finalFlowerCombinationSrc.includes('ht_mh_lh.png')) {
+            // 修改文本容器中的文字
+            document.getElementById('text-line1').innerText = '梅兰清韵';
+            document.getElementById('text-line2').innerText = '清韵飘逸醉心扉';
+
+            // 不替换整个小花容器，直接为每个小花添加文本
+            const flowerItems = document.querySelectorAll('.small-flower-container .flower-item');
+            flowerItems[0].querySelector('span').innerText = '飘逸';
+            flowerItems[1].querySelector('span').innerText = '高峻';
+            flowerItems[2].querySelector('span').innerText = '坚贞';
+            textElement.innerText = '梅花，以其傲骨凌霜、坚韧不拔之姿，被誉为“岁寒三友”之一，象征着高洁、坚强与不屈。兰花，以其清雅幽香、飘逸之态，代表着高洁、坚韧与淡泊。既体现了梅花的傲骨与坚韧，又融入了兰花的清雅与飘逸。';
+        } else if (finalFlowerCombinationSrc.includes('hl_yg_mh.png') ||
+        finalFlowerCombinationSrc.includes('hl_mh_yg.png') || finalFlowerCombinationSrc.includes('hp_yg_mh.png') || finalFlowerCombinationSrc.includes('hp_mh_yg.png') || finalFlowerCombinationSrc.includes('hpi_yg_mh.png') || finalFlowerCombinationSrc.includes('hpi_mh_yg.png') || finalFlowerCombinationSrc.includes('ht_yg_mh.png') || finalFlowerCombinationSrc.includes('ht_mh_yg.png')) {
+            // 修改文本容器中的文字
+            document.getElementById('text-line1').innerText = '梅桂清韵';
+            document.getElementById('text-line2').innerText = '雅韵飘香醉心留';
+
+            // 不替换整个小花容器，直接为每个小花添加文本
+            const flowerItems = document.querySelectorAll('.small-flower-container .flower-item');
+            flowerItems[0].querySelector('span').innerText = '顽强';
+            flowerItems[1].querySelector('span').innerText = '刚直';
+            flowerItems[2].querySelector('span').innerText = '矗立';
+            textElement.innerText = '梅花以其傲骨凌霜、坚韧不拔之姿，象征着高洁、坚强与不屈；而岩桂（即桂花的一种，常生于岩石缝隙中，因而得名）则以其清雅幽香、生命力顽强之态，赢得了“岩桂飘香”的美誉，代表着坚韧、清雅与淡泊。';
+        } else if (finalFlowerCombinationSrc.includes('hl_hxc_ss.png') ||
+        finalFlowerCombinationSrc.includes('hl_ss_hxc.png') || finalFlowerCombinationSrc.includes('hp_hxc_ss.png') || finalFlowerCombinationSrc.includes('hp_ss_hxc.png') || finalFlowerCombinationSrc.includes('hpi_hxc_ss.png') || finalFlowerCombinationSrc.includes('hpi_ss_hxc.png') || finalFlowerCombinationSrc.includes('ht_hxc_ss.png') || finalFlowerCombinationSrc.includes('ht_ss_hxc.png')) {
+            // 修改文本容器中的文字
+            document.getElementById('text-line1').innerText = '松羞映趣';
+            document.getElementById('text-line2').innerText = '相映成趣韵无穷';
+
+            // 不替换整个小花容器，直接为每个小花添加文本
+            const flowerItems = document.querySelectorAll('.small-flower-container .flower-item');
+            flowerItems[0].querySelector('span').innerText = '灵动';
+            flowerItems[1].querySelector('span').innerText = '庄重';
+            flowerItems[2].querySelector('span').innerText = '生机';
+            textElement.innerText = '松树，作为地球上最古老的树种之一，象征着坚韧不拔、长寿吉祥和高贵品格。其挺拔的姿态和苍劲的枝叶，展现出一种古老而庄重的美。而含羞草，则以其独特的触碰即闭的特性，传递出一种羞涩、敏感而又生机勃勃的气息。';
+        } else if (finalFlowerCombinationSrc.includes('hl_lh_ss.png') ||
+        finalFlowerCombinationSrc.includes('hl_ss_lh.png') || finalFlowerCombinationSrc.includes('hp_lh_ss.png') || finalFlowerCombinationSrc.includes('hp_ss_lh.png') || finalFlowerCombinationSrc.includes('hpi_lh_ss.png') || finalFlowerCombinationSrc.includes('hpi_ss_lh.png') || finalFlowerCombinationSrc.includes('ht_lh_ss.png') || finalFlowerCombinationSrc.includes('ht_ss_lh.png')) {
+            // 修改文本容器中的文字
+            document.getElementById('text-line1').innerText = '松兰雅韵';
+            document.getElementById('text-line2').innerText = '雅韵飘逸韵悠长';
+
+            // 不替换整个小花容器，直接为每个小花添加文本
+            const flowerItems = document.querySelectorAll('.small-flower-container .flower-item');
+            flowerItems[0].querySelector('span').innerText = '幽雅';
+            flowerItems[1].querySelector('span').innerText = '长寿';
+            flowerItems[2].querySelector('span').innerText = '苍劲';
+            textElement.innerText = '松树，以其挺拔的姿态、苍劲的枝叶和坚韧不拔的精神，象征着坚韧、长寿与尊贵。而兰花，则以其清雅幽香、飘逸之态，被誉为“王者之香”，代表着高洁、坚韧与淡泊。共同营造出一种既庄重又不失飘逸、既坚韧又不失淡泊的独特韵味。';
+        } else if (finalFlowerCombinationSrc.includes('hl_yg_ss.png') ||
+        finalFlowerCombinationSrc.includes('hl_ss_yg.png') || finalFlowerCombinationSrc.includes('hp_yg_ss.png') || finalFlowerCombinationSrc.includes('hp_ss_yg.png') || finalFlowerCombinationSrc.includes('hpi_yg_ss.png') || finalFlowerCombinationSrc.includes('hpi_ss_yg.png') || finalFlowerCombinationSrc.includes('ht_yg_ss.png') || finalFlowerCombinationSrc.includes('ht_ss_yg.png')) {
+            // 修改文本容器中的文字
+            document.getElementById('text-line1').innerText = '松桂清韵';
+            document.getElementById('text-line2').innerText = '清韵悠长傲风霜';
+
+            // 不替换整个小花容器，直接为每个小花添加文本
+            const flowerItems = document.querySelectorAll('.small-flower-container .flower-item');
+            flowerItems[0].querySelector('span').innerText = '坚韧';
+            flowerItems[1].querySelector('span').innerText = '清雅';
+            flowerItems[2].querySelector('span').innerText = '淡泊';
+            textElement.innerText = '松树，以其挺拔的姿态、苍劲的枝叶和坚韧不拔的精神，象征着坚韧、长寿与不屈。岩桂，则以其生于岩石缝隙之中、清雅幽香之态，赢得了“岩骨花香”的美誉，代表着坚韧、清雅与淡泊。寓意着坚韧与清雅、不屈与淡泊的完美结合。';
+        }
+        
+                // 插入文本到意境图片的位置
+                centralImage.appendChild(textElement);
+            }
+        };
+    </script>
+
+</body>
+</html>
